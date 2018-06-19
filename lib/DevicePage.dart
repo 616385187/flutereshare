@@ -10,7 +10,7 @@ class devicePage extends StatefulWidget{
   _devicePageState createState() => new _devicePageState(device);
 
 }
-
+//jjj
 class _devicePageState extends State<devicePage>{
 
   static const MethodChannel methodChannel = const MethodChannel('GET_DEVICE_CHANNEL');
