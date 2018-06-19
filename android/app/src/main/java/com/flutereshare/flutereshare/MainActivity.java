@@ -13,6 +13,7 @@ import com.eshare.api.utils.EShareException;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -29,30 +30,14 @@ import io.flutter.plugins.GeneratedPluginRegistrant;
 public class MainActivity extends FlutterActivity {
   private final String GET_DEVICE_CHANNEL="GET_DEVICE_CHANNEL";
   private final String GET_DEVICE_CHANNEL_TRY_TO_CONNECT="GET_DEVICE_CHANNEL_TRYTOCONNECT";
+  private final String GET_DEVICE_CHANNEL_FILE="GET_DEVICE_CHANNEL_FILE";
+  private final String SHOWFILE="SHOWFILE";
   private ExecutorService pool  = Executors.newFixedThreadPool(3);
+  private List<Entity> files = new ArrayList<>();
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     GeneratedPluginRegistrant.registerWith(this);
-
-    pool.execute(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          File file = new File(Environment.getExternalStorageDirectory().getPath()+"/test");
-          if (file!=null){
-            File[] fileList = file.listFiles();
-            for (File f:fileList) {
-              Log.i(MainActivity.class.getName(),f.toString());
-            }
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-      }
-    });
-
     new MethodChannel(getFlutterView(), GET_DEVICE_CHANNEL).setMethodCallHandler(
             new MethodCallHandler() {
               @Override
@@ -63,6 +48,12 @@ public class MainActivity extends FlutterActivity {
                     break;
                   case "GET_DEVICE_CHANNEL_TRYTOCONNECT":
                     get_device_channel_trytoconnect(call,result);
+                    break;
+                  case "GET_DEVICE_CHANNEL_FILE":
+                    get_file_channel(call,result);
+                    break;
+                  case "SHOWFILE":
+                    showfile(call,result);
                     break;
                 }
 
@@ -106,6 +97,60 @@ public class MainActivity extends FlutterActivity {
 
             @Override
             public void onError(EShareException e) {
+
+            }
+          });
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+
+  }
+  private void showfile(final MethodCall call,final MethodChannel.Result result) {
+    pool.execute(new Runnable() {
+      @Override
+      public void run() {
+        Log.i("MainActivity_",call.argument("date").toString());
+        String path = call.argument("date").toString();
+        try {
+          EShareAPI.init(MainActivity.this).media().openFile(new File(path));
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+
+  }
+  private void get_file_channel(final MethodCall call,final MethodChannel.Result result) {
+    files.clear();
+    pool.execute(new Runnable() {
+      @Override
+      public void run() {
+        Log.i("MainActivity_",call.argument("date").toString());
+        final String type = call.argument("date").toString();
+        try {
+          pool.execute(new Runnable() {
+            @Override
+            public void run() {
+              try {
+                File file = new File(Environment.getExternalStorageDirectory().getPath()+"/test");
+                if (file!=null){
+                  File[] fileList = file.listFiles();
+                  for (File f:fileList) {
+                    if (f.getName().endsWith(type)){
+                      Entity entity = new Entity();
+                      entity.setName(f.getName());
+                      entity.setPath(f.getPath());
+                      files.add(entity);
+                      Log.i(MainActivity.class.getName(),f.toString());
+                    }
+                  }
+                  result.success(new Gson().toJson(files));
+                }
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
 
             }
           });

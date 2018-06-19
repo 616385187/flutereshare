@@ -61,6 +61,7 @@ class _PlatformChannelState extends State<PlatformChannel> {
       batteryLevel = 'Failed to get battery level.';
     }
     setState(() {
+
     });
   }
 
