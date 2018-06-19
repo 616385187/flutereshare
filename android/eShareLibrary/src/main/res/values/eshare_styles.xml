@@ -1,0 +1,14 @@
+<resources>
+
+    <style name="EShareAppBaseTheme" parent="android:Theme.Light"></style>
+
+    <style name="EShare_Theme" parent="EShareAppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="EShare_ThemeFullScreen" parent="EShareAppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="eshare_app_name">EShareAPI</string>
+    <string name="eshare_mirror_open_close">Mirroring</string>
+    <string name="eshare_mirror_description_start">Tap on the button to start mirroring</string>
+    <string name="eshare_mirror_description_stop">Tap on the button to stop mirroring</string>
+
+</resources>

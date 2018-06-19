@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="eshare_mirror_open_close">无线传屏</string>
+    <string name="eshare_mirror_description_start">点击右侧按钮可打开无线传屏</string>
+    <string name="eshare_mirror_description_stop">点击右侧按钮可关闭无线传屏</string>
+
+</resources>

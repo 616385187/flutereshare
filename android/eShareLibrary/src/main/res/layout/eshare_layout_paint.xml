@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.eshare.mirror.PaintView
+        android:id="@+id/eshare_view_paint"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_pen"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/eshare_ic_open" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_red"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/eshare_btn_paint_pen"
+        android:background="@drawable/eshare_ic_red_pen"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_white"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/eshare_btn_paint_red"
+        android:background="@drawable/eshare_ic_white_pen"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_black"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/eshare_btn_paint_white"
+        android:background="@drawable/eshare_ic_black_pen"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_yellow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/eshare_btn_paint_black"
+        android:background="@drawable/eshare_ic_yellow_pen"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_blue"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/eshare_btn_paint_yellow"
+        android:background="@drawable/eshare_ic_blue_pen"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_change_color"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/eshare_btn_paint_pen"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/eshare_ic_add_pen"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/eshare_btn_paint_save"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/eshare_btn_paint_change_color"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/eshare_ic_save_image"
+        android:visibility="gone" />
+
+</RelativeLayout>

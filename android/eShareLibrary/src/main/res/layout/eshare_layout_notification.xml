@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFF"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/eshare_iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10.0dip"
+        android:src="@drawable/eshare_ic_eshare" />
+
+    <LinearLayout
+        android:id="@+id/eshare_ll_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5.0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/eshare_ib_switch"
+            android:layout_width="87dp"
+            android:layout_height="66dp"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="4dip"
+            android:layout_marginTop="4dip"
+            android:background="@android:color/transparent"
+            android:src="@drawable/eshare_cb_on" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16.0dip"
+        android:layout_toLeftOf="@id/eshare_ll_switch"
+        android:layout_toRightOf="@id/eshare_iv_icon"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/eshare_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="14.0sp" />
+
+        <TextView
+            android:id="@+id/eshare_tv_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="11.0sp" />
+    </LinearLayout>
+
+</RelativeLayout>

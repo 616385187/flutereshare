@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ecloud.eshare"
+    android:versionCode="1"
+    android:versionName="v2.7.0815" >
+<!--
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="22" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/eshare_ic_eshare"
+        android:label="@string/eshare_app_name"
+        android:theme="@style/EShare_Theme" >
+        <activity
+            android:name="com.ecloud.eshare.TVMirrorActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:theme="@style/EShare_ThemeFullScreen" />
+
+        <service
+            android:name="com.eshare.mirror.MirrorScreenCaptureService"
+            android:exported="true" />
+    </application>
+-->
+
+</manifest>
