@@ -1,0 +1,36 @@
+//
+//  Eshare.pch
+//  EShareFrameWk
+//
+//  Created by EShare on 2017/3/24.
+//  Copyright © 2017年 Eshare. All rights reserved.
+//  http://www.jianshu.com/p/f9befc134dbc
+
+#ifndef Eshare_pch
+#define Eshare_pch
+
+#import "ESPrivateCommand.h"
+#import "CodeManage.h"
+#import "ESCommand.h"
+
+
+#ifndef __OPTIMIZE__
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
+
+#ifndef __OPTIMIZE__
+#define CommandNSLog(...) NSLog(__VA_ARGS__)
+#else
+#define CommandNSLog(...) {}
+#endif
+
+#ifndef __OPTIMIZE__
+#define HttpNSLog(...) NSLog(__VA_ARGS__)
+#else
+#define HttpNSLog(...) {}
+#endif
+
+
+#endif /* Eshare_pch */
