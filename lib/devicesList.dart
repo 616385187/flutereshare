@@ -32,16 +32,19 @@ class _PlatformChannelState extends State<PlatformChannel> {
 //      print(a[0].forEach((key, value) => print("$key=$value")));
 //      print(a[0]["a"]);
       devices = JSON.decode(result );
+      if(devices.length!=null&&devices.length>0){
       devices[0].forEach((key,value) => print("$value"));
       print(devices.toString());
-
       batteryLevel = devices.toString();
+      }
     } on PlatformException {
       batteryLevel = 'Failed to get battery level.';
     }
+
     setState(() {
       _batteryLevel = batteryLevel;
     });
+
   }
   Future<Null> _tryToConnect(dynamic devices) async {
     String batteryLevel;
@@ -156,7 +159,7 @@ class _PlatformChannelState extends State<PlatformChannel> {
   }
 }
 Widget _getEshareDevicelist(List<dynamic>devices ){
-  return new ListView.builder(itemCount: devices.length,
+  return new ListView.builder(itemCount: devices.length==null?0:devices.length,
 
       itemBuilder: (BuildContext con,int indext){
         return new Container(child: new Text(devices[indext]),);
