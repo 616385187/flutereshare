@@ -21,6 +21,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		E12ABE1D20DB9E750075E67F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E12ABE1C20DB9E750075E67F /* libz.tbd */; };
 		E1A3A5DE20DAAF9600FF1243 /* eshareWeb in Resources */ = {isa = PBXBuildFile; fileRef = E1A3A5DC20DAAF9600FF1243 /* eshareWeb */; };
 		E1A3A5DF20DAAF9600FF1243 /* EShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A3A5DD20DAAF9600FF1243 /* EShare.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E12ABE1C20DB9E750075E67F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E1A3A5DC20DAAF9600FF1243 /* eshareWeb */ = {isa = PBXFileReference; lastKnownFileType = folder; path = eshareWeb; sourceTree = "<group>"; };
 		E1A3A5DD20DAAF9600FF1243 /* EShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EShare.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12ABE1D20DB9E750075E67F /* libz.tbd in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
 				3B80C3941E831B6300D905FE /* App.framework in Frameworks */,
 				E1A3A5DF20DAAF9600FF1243 /* EShare.framework in Frameworks */,
@@ -96,6 +99,7 @@
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
+				E12ABE1B20DB9E750075E67F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +135,14 @@
 				97C146F21CF9000F007C117D /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E12ABE1B20DB9E750075E67F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E12ABE1C20DB9E750075E67F /* libz.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -25,7 +25,7 @@ class _PlatformChannelState extends State<PlatformChannel> {
     try {
       devices.clear();
       final String result = await methodChannel.invokeMethod('GET_DEVICE_CHANNEL_Fx');
-      print(result);
+      print(result + '11111');
 //      JsonDecoder decoder = new JsonDecoder();
 //      List<dynamic>  a = decoder.convert(result);
       //json原来是这么玩的

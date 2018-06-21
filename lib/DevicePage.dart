@@ -20,6 +20,7 @@ class _devicePageState extends State<devicePage>{
   String _type ="";
   List<dynamic> date;
   Future<Null> _getFile(String type) async {
+    print('33333333'+type);
     _type=type;
     int count;
     try {
@@ -47,28 +48,57 @@ class _devicePageState extends State<devicePage>{
 
   @override
   Widget build(BuildContext context) {
-    
-    return new Material(
 
-      child: new Scaffold(
-        appBar: new AppBar(title: new Text("操作演示(点击投屏)"),),
-        body: new Container(
-          child:
-        new Column(mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取图片"),onPressed: ()=>_getFile("jpg"),),),),),
-            new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取文件"),onPressed: ()=>_getFile("txt"),),),),),
-            new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取音频"),onPressed: ()=>_getFile("mp3"),),),),),
-            new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取视频"),onPressed: ()=>_getFile("mp4"),),),),),
+    if(Platform.isIOS)
+    {
+      return new Material(
 
-            new Container(height: 500.0-116.0,child: buildGrid(date,_type),)
+          child: new Scaffold(
+              appBar: new AppBar(title: new Text("操作演示(点击投屏2)"),),
+              body: new Container(
+                child:
+                new Column(mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("ios文件传送"),onPressed: ()=>_getFile("iosTrans"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取图片"),onPressed: ()=>_getFile("jpg"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取文件"),onPressed: ()=>_getFile("txt"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取音频"),onPressed: ()=>_getFile("mp3"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取视频"),onPressed: ()=>_getFile("mp4"),),),),),
 
-          ],),
+                    new Container(height: 500.0-116.0,child: buildGrid(date,_type),)
+
+                  ],),
+              )
+
           )
+      );
+    }
+    else if(Platform.isAndroid)
+    {
+      return new Material(
+
+          child: new Scaffold(
+              appBar: new AppBar(title: new Text("操作演示(点击投屏)"),),
+              body: new Container(
+                child:
+                new Column(mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取图片"),onPressed: ()=>_getFile("jpg"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取文件"),onPressed: ()=>_getFile("txt"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取音频"),onPressed: ()=>_getFile("mp3"),),),),),
+                    new InkWell(child: new Card(child: new Center(child: new FlatButton(child: new Text("获取视频"),onPressed: ()=>_getFile("mp4"),),),),),
+
+                    new Container(height: 500.0-116.0,child: buildGrid(date,_type),)
+
+                  ],),
+              )
 
 
-      )
-    );
+          )
+      );
+    }
+
+
   }
 
  Widget buildGrid(List<dynamic> date,String type) {
