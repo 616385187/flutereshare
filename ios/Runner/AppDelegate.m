@@ -16,6 +16,11 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+  [self _adInitSavePath];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_cmCloudCastDidConnect:) name:TcpSocketdidConnectNotification object:nil];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_cmAckTimeoutNotice:) name:ACKTimeOutNotification object:nil];
+    
   [GeneratedPluginRegistrant registerWithRegistry:self];
   // Override point for customization after application launch.
     
@@ -69,41 +74,81 @@
         }
         else if ([call.method isEqualToString:@"GET_DEVICE_CHANNEL_FILE"])
         {
-            NSString *fileNamePath;
             NSDictionary *dic = call.arguments;
             NSString *deviceDicString = [dic valueForKey:@"date"];
             
-            if ([deviceDicString.lowercaseString containsString:@"mp3"])
+            if ([deviceDicString.lowercaseString containsString:@"iostrans"])
             {
-                [ESLocalFileCommand OpenFile:fileNamePath fileType:kFileTypeAudio];
-            }else if ([deviceDicString.lowercaseString containsString:@"mp4"])
-            {
-                [ESLocalFileCommand OpenFile:fileNamePath fileType:kFileTypeVideo];
-            }else if ([deviceDicString.lowercaseString containsString:@"iostrans"])
-            {
+
                 NSLog(@"打开文件传送");
                 NSString *httpTransString = [self startFileTrans];
                 UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"打开文件传送" message:httpTransString preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
                 [alertViewController addAction:cancleAction];
-                 [self.controller presentViewController:alertViewController animated:YES completion:nil];
-                
-            }else{
-                //直接打开文件
-                 [ESLocalFileCommand OpenFile:fileNamePath fileType:kFileTypeOther];
+                [self.controller presentViewController:alertViewController animated:YES completion:nil];
+
+                return;
             }
-            NSString *jsonStringArr = @"";
-            NSMutableArray *devicesDicArray = [NSMutableArray array];
-            NSMutableDictionary *filedic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"test111",@"name",@"test2222",@"path",nil];
-            [devicesDicArray addObject:filedic];
-            NSData *data=[NSJSONSerialization dataWithJSONObject:devicesDicArray options:NSJSONWritingPrettyPrinted error:nil];
-            jsonStringArr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
             
-            result(jsonStringArr);
+            NSArray *filePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *sharefilePathString = [filePaths objectAtIndex:0];
+            sharefilePathString = [sharefilePathString stringByAppendingString:@"/EShareFile"];
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSError *error;
+            NSArray *fileList = [fileManager contentsOfDirectoryAtPath:sharefilePathString error:&error];
+            
+            if (error)
+            {
+                NSLog(@"getFileListInFolderWithPathFailed, errorInfo:%@",error);
+                return;
+            }
+            if ([deviceDicString.lowercaseString containsString:@"mp3"])
+            {
+
+                NSString *jsonString = [self filterFiletypeFormList:fileList fullpath:sharefilePathString type:@"mp3"];
+              result(jsonString);
+                
+            }
+            else if ([deviceDicString.lowercaseString containsString:@"mp4"])
+            {
+                NSString *jsonString = [self filterFiletypeFormList:fileList fullpath:sharefilePathString type:@"mp4"];
+                result(jsonString);
+            }
+            else if ([deviceDicString.lowercaseString containsString:@"jpg"])
+            {
+                NSString *jsonString = [self filterFiletypeFormList:fileList fullpath:sharefilePathString type:@"jpg"];
+                result(jsonString);
+            }
+            else {
+                NSString *jsonString = [self filterFiletypeFormList:fileList fullpath:sharefilePathString type:@"txt"];
+                result(jsonString);
+            }
         }
         else if ([call.method isEqualToString:@"SHOWFILE"])
         {
-            result(FlutterMethodNotImplemented);
+            NSDictionary *dic = call.arguments;
+            NSString *filePath = [dic valueForKey:@"date"];
+            if ([filePath.pathExtension isEqualToString:@"mp3"])
+            {
+                [ESLocalFileCommand OpenFile:filePath fileType:kFileTypeAudio];
+            }
+           else if ([filePath.pathExtension isEqualToString:@"mp4"])
+            {
+                [ESLocalFileCommand OpenFile:filePath fileType:kFileTypeVideo];
+            }
+           else if ([filePath.pathExtension isEqualToString:@"txt"])
+            {
+                [ESLocalFileCommand OpenFile:filePath fileType:kFileTypeTxt];
+            }
+           else if ([filePath.pathExtension isEqualToString:@"jpg"])
+            {
+                [ESLocalFileCommand OpenFile:filePath fileType:kFileTypeImage];
+            }
+           else
+           {
+                [ESLocalFileCommand OpenFile:filePath fileType:kFileTypeOther];
+           }
         }
         else
         {
@@ -118,6 +163,29 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [self _adStopThings];
 }
+
+
+- (NSString *)filterFiletypeFormList:(NSArray *)fileList fullpath:(NSString *)path type:(NSString *)type
+{
+    path = [path stringByAppendingString:@"/"];
+    NSString *jsonStringArr = @"";
+    NSMutableArray *devicesDicArray = [NSMutableArray array];
+    for (NSString *file in fileList)
+    {
+        if ([file.pathExtension isEqualToString:type])
+        {
+            
+            NSString *filePath = [path stringByAppendingString:file];
+            NSMutableDictionary *filedic = [NSMutableDictionary dictionaryWithObjectsAndKeys:file.lastPathComponent,@"name",filePath,@"path",nil];
+            [devicesDicArray addObject:filedic];
+        }
+    }
+    NSData *data=[NSJSONSerialization dataWithJSONObject:devicesDicArray options:NSJSONWritingPrettyPrinted error:nil];
+    jsonStringArr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    jsonStringArr =[jsonStringArr stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+    return jsonStringArr;
+}
+
 
 #pragma mark - 处理程序崩溃时的回调动作
 - (void)_adStopThings
@@ -186,13 +254,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 //启动文件传送
 - (NSString *)startFileTrans
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [self _adInitSavePath];
-    });
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_cmCloudCastDidConnect:) name:TcpSocketdidConnectNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_cmAckTimeoutNotice:) name:ACKTimeOutNotification object:nil];
     [[self httpManager] startHttpServer];
     [[ESDeviceCommand sharedESDeviceCommand] setReciveBordCastTime:120.0f];
     
